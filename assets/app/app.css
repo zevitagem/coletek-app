@@ -1,0 +1,15 @@
+.none {
+    display: none;
+}
+.card-header {
+    background-color: rgba(0,0,0,.03);
+}
+.highlight {
+    background-color: #f7f7f9;
+}
+#box-change-users hr {
+    margin: 5px;
+}
+#box-change-users i {
+    float: right;
+}

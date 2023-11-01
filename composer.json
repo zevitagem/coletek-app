@@ -1,0 +1,17 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "core/"
+        },
+        "files": ["core/helpers/functions.php"]
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
+    }
+}
