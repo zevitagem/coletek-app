@@ -2,7 +2,7 @@
 
 namespace app\services;
 
-use app\validators\UserFormValidator;
+use app\validators\UserValidator;
 use app\repositories\UserRepository;
 use app\repositories\SetoresRepository;
 use app\repositories\UserSetorRepository;
@@ -12,10 +12,11 @@ use Throwable;
 
 class UserService extends AbstractCrudService
 {
+
     public function __construct()
     {
         parent::setRepository(new UserRepository());
-        parent::setValidator(new UserFormValidator());
+        parent::setValidator(new UserValidator());
         parent::setHandler(new UserHandler());
 
         $this->setDependencie('setores_repository', new SetoresRepository());
@@ -34,21 +35,49 @@ class UserService extends AbstractCrudService
     public function getDataToShow(int $id)
     {
         $row = $this->repository->getById($id);
+        $this->validate(['row' => $row], 'show');
+
         $default = $this->getDataToCreate();
+        $default['setores_adicionados'] = $this->dependencies['user_setor_repository']->getByUser($id);
+        $default['row'] = $row;
 
-        if (empty($row)) {
-            return [];
+        return $default;
+    }
+    
+    public function update(array $data)
+    {
+        try {
+            $this->repository->beginTransaction();
+            
+            $row = $this->repository->getById($data['id']);
+            $data['row'] = $row;
+
+            $this->validate($data, __FUNCTION__);
+            dd($data);
+            $userId = $this->repository->store([
+                'name' => $data['name'],
+                'email' => $data['email'],
+            ]);
+
+            $this->dependencies['user_setores_service']->storeBulk(
+                $data['setores_adicionados'],
+                $userId
+            );
+
+            $this->repository->commit();
+
+            return true;
+        } catch (Throwable $exc) {
+            $this->repository->rollBack();
+            throw $exc;
         }
-
-        return array_merge(
-            compact('row'),
-            $default
-        );
     }
 
     public function store(array $data)
     {
         try {
+            $this->validate($data, __FUNCTION__);
+            
             $this->repository->beginTransaction();
 
             $userId = $this->repository->store([

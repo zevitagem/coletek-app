@@ -1,6 +1,8 @@
-var APP = function () {
+var APP = (function () {
 
-    var state = {};
+    var state = {
+        topMessageBox: $('#top-message-box')
+    };
 
     function load() {
         state.mobileCollapse = $('#mobile-collapse');
@@ -21,8 +23,12 @@ var APP = function () {
         return state.queryValue.val().trim();
     }
 
-    return {load, hideMenu, getQueryElement, getQueryValue};
-};
+    function addTopMessage(message) {
+        state.topMessageBox.html(message);
+    }
+
+    return {load, hideMenu, getQueryElement, getQueryValue, addTopMessage};
+})();
 
 
 

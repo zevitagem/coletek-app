@@ -342,6 +342,7 @@
                                 <div class="main-body">
                                     <div class="page-wrapper">
                                         <div class="page-body">
+                                            <div id="top-message-box"></div>
                                             <?php if (!empty($messages['error'])) { ?>
                                                     <div class="alert alert-danger" role="alert">
                                                         <?= $messages['error'] ?>

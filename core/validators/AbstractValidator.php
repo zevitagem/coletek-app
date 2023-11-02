@@ -2,28 +2,23 @@
 
 namespace app\validators;
 
-use app\services\AbstractService;
-
 abstract class AbstractValidator
 {
     protected AbstractService $service;
     protected array $data;
-    protected array $messages = [];
-
-    /** -- * */
+    protected array $messages = [
+        'id_invalid' => 'O ID é inválido',
+        'row_not_found' => 'O registro não foi encontrado',
+        'register_must_exists' => 'O registro em questão deve existir',
+        'only_owner_can_manipulate' => 'Somente o proprietário pode manipular o registro',
+    ];
     private string $method;
     private bool $withHTML = true;
     private array $errors = [];
-    private $textSeparator = PHP_EOL;
 
     public function setData(array $data)
     {
         $this->data = $data;
-    }
-
-    public function setService(AbstractService $service)
-    {
-        $this->service = $service;
     }
 
     public function setWithHTML(bool $value)
@@ -51,16 +46,6 @@ abstract class AbstractValidator
         return (!empty($this->getErrors()));
     }
 
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    public function getTextSeparator()
-    {
-        return $this->textSeparator;
-    }
-
     public function getMethod()
     {
         return $this->method;
@@ -86,7 +71,7 @@ abstract class AbstractValidator
     public function translate()
     {
         if (!$this->withHTML) {
-            return implode($this->getTextSeparator(), $this->errors);
+            return $this->errors;
         }
 
         return includeWithVariables(

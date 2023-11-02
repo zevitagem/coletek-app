@@ -6,7 +6,6 @@ var USER_FORM = function () {
         setoresAdicionadosBox: $('#setores-adicionados-box'),
         addSetorButton: $('#add-setor'),
         templateSetorAdicionadoHTML: $('#template-setor-adicionado').html(),
-        messageBox: $('#message-box')
     };
 
     function load() {
@@ -54,9 +53,9 @@ var USER_FORM = function () {
                 success: function (data)
                 {
                     if (data.status == false) {
-                        state.messageBox.html(data.message);
+                        APP.addTopMessage(data.message);
                     } else {
-                        state.messageBox.html('');
+                        APP.addTopMessage('');
                         alert(data.message);
                         
                         window.location.href = data.url_callback;

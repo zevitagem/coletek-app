@@ -6,7 +6,7 @@
             <td>Nome</td> 
             <td>
                 <div class="form-group">
-                    <input <?= ($isUpdate) ? 'disabled' : '' ?>  type="text" class="form-control" name="name" value="<?= ($isUpdate) ? $row->getName() : '' ?>">
+                    <input type="text" class="form-control" name="name" value="<?= ($isUpdate) ? $row->getName() : '' ?>">
                 </div>
             </td> 
         </tr>
@@ -14,7 +14,7 @@
             <td>Email</td> 
             <td>
                 <div class="form-group">
-                    <input <?= ($isUpdate) ? 'disabled' : '' ?>  type="email" class="form-control" name="email" value="<?= ($isUpdate) ? $row->getEmail() : '' ?>">
+                    <input type="email" class="form-control" name="email" value="<?= ($isUpdate) ? $row->getEmail() : '' ?>">
                 </div>
             </td> 
         </tr>
@@ -39,9 +39,12 @@
         <tr>
             <td id="setores-adicionados-box" colspan="2">
                 <?php
-                if (!empty($setores_adicionados)) {
+                if ($isUpdate && !empty($setores_adicionados)) {
                     foreach ($setores_adicionados as $setorAdicionado) {
-                        includeWithVariables(view('user/vinculo/vinculo.php'), ['name' => $setorAdicionado->getAttribute('setores_name')]);
+                        includeWithVariables(view('user/vinculo/vinculo.php'), [
+                            'name' => $setorAdicionado->getAttribute('setor_name'),
+                            'id' => $setorAdicionado->getAttribute('setor_id')]
+                        );
                     }
                 }
                 ?>

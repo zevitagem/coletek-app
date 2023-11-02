@@ -8,5 +8,6 @@ var USER = function () {
 };
 
 $(document).ready(function () {
+    APP.load();
     USER().load();
 });

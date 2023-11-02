@@ -6,10 +6,13 @@ use app\validators\AbstractValidator;
 
 class UserSetoresValidator extends AbstractValidator
 {
-    protected array $messages = [
-        'setor' => 'O setor na posição [%s] precisa ser válido',
-        'user' => 'Um usuário válido deve ser selecionado',
-    ];
+    public function __construct()
+    {
+        $this->messages = array_merge($this->messages, [
+            'setor' => 'O setor na posição [%s] precisa ser válido',
+            'user' => 'Um usuário válido deve ser selecionado',
+        ]);
+    }
 
     public function store()
     {

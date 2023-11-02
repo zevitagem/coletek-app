@@ -1,4 +1,4 @@
-var USER_CREATE = function () {
+var USER_SHOW = function () {
 
     var state = {};
 
@@ -12,5 +12,5 @@ var USER_CREATE = function () {
 
 $(document).ready(function () {
     APP.load();
-    USER_CREATE().load();
+    USER_SHOW().load();
 });

@@ -9,6 +9,7 @@ use Throwable;
 
 class UserController extends BaseUiController
 {
+
     public function __construct()
     {
         parent::__construct([
@@ -43,7 +44,6 @@ class UserController extends BaseUiController
 
         try {
             $this->service->handle($data, __FUNCTION__);
-            $this->service->validate($data, __FUNCTION__);
             $status = $this->service->store($data);
             $message = ($status) ? 'Operação realizada com sucesso!' : 'Ocorreu uma falha durante a inserção';
         } catch (ValidatorException $exc) {
@@ -51,7 +51,31 @@ class UserController extends BaseUiController
         } catch (Throwable $exc) {
             $message = includeWithVariables(view('components/validator-messages.php'), [
                 'messages' => [$exc->getMessage()]
-            ], false);
+                ], false);
+        }
+
+        echo json_encode([
+            'status' => $status,
+            'message' => $message,
+            'url_callback' => ($status) ? route('user.php') : null
+        ]);
+    }
+    
+    public function update()
+    {
+        $data = $_POST;
+        $status = false;
+
+        try {
+            $this->service->handle($data, __FUNCTION__);
+            $status = $this->service->update($data);
+            $message = ($status) ? 'Operação realizada com sucesso!' : 'Ocorreu uma falha durante a atualização';
+        } catch (ValidatorException $exc) {
+            $message = $exc->getMessage();
+        } catch (Throwable $exc) {
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => [$exc->getMessage()]
+                ], false);
         }
 
         echo json_encode([
@@ -81,6 +105,8 @@ class UserController extends BaseUiController
         }
 
         $data['message'] = $message;
+
+        $this->addShowAssets();
 
         parent::view('user/show.php', ['data' => $data]);
     }
