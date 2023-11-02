@@ -10,6 +10,10 @@ var USER = function () {
         state.destroyButton.click(function (e) {
             e.preventDefault();
 
+            if (!confirm('Deseja realmente excluir esse registro?')) {
+                return;
+            }
+
             var button = $(this);
             var url = button.data('action'),
                     method = button.data('method');

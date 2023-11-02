@@ -5,10 +5,16 @@ var USER_FORM = function () {
         setor: $('#setor'),
         setoresAdicionadosBox: $('#setores-adicionados-box'),
         addSetorButton: $('#add-setor'),
-        templateSetorAdicionadoHTML: $('#template-setor-adicionado').html(),
+        templateSetorAdicionadoHTML: $('#template-setor-adicionado').html()
     };
 
     function load() {
+
+        state.setoresAdicionadosBox.on('click', 'button.remove', function (e) {
+            e.preventDefault();
+            var parent = $(this).parents('.setor');
+            parent.remove();
+        });
 
         state.addSetorButton.click(function (e) {
             e.preventDefault();

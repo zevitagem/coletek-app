@@ -9,7 +9,7 @@ if (!empty($message)) {
         <form method="GET" action="<?= route('user.php?action=index') ?>">
             <div class="input-group">
                 <select class="custom-select form-control" name="setor">
-                    <option value="0">Selecione um setor para filtro</option>
+                    <option value="0">Nenhum setor selecionado</option>
                     <?php
                     $setorFiltrado = '';
                     foreach ($data['setores'] as $setor) {
