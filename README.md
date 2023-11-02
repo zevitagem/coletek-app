@@ -12,13 +12,27 @@ $ php ../configuration.php
 ```
 
 ```
-Query [0] executed in 0.04138 ms
-Query [1] executed in 0.032468 ms
-Query [2] executed in 0.033158 ms
-Query [3] executed in 0.042618 ms
-Query [4] executed in 0.034529 ms
-Query [5] executed in 0.033079 ms
+Query [0] executed in 0.028375 ms
+Query [1] executed in 0.022754 ms
+Query [2] executed in 0.023745 ms
+Query [3] executed in 0.023922 ms
+Query [4] executed in 0.046516 ms
+Query [5] executed in 0.046761 ms
+Query [6] executed in -0.933017 ms
+Query [7] executed in 0.056102 ms
+Query [0] executed in 0.01223 ms
 ...
+```
+
+Se você já tiver executado as migrations antes, provavelmente as tabelas já estão criadas e a tabela "migrations" também,
+impossibilitando então de executar novamente o comando como medida de segurança. Se precisar, por algum motivo, executar novamente
+as migrations, você precisará excluir todas as tabelas, caso contrário, irá receber uma mensagem tipo:
+
+```
+Fatal error: Uncaught Exception: This script has already been executed, check your database. in /var/www/html/app/configuration.php:12
+Stack trace:
+#0 {main}
+  thrown in /var/www/html/app/configuration.php on line 12
 ```
 
 ## Enjoy

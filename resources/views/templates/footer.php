@@ -82,6 +82,7 @@
     <script src="<?= asset('theme/js/rocket-loader.min.js') ?>" data-cf-settings="2d8d78e876b340f9029c575b-|49" defer=""></script></body>
     <script src="<?= asset('vendors/ladda/js/spin.min.js') ?>"></script>
     <script src="<?= asset('vendors/ladda/js/ladda.min.js') ?>"></script>
+    <script src="<?= asset('app/app.js') ?>"></script>
 
     <?php
     if (!empty($assets['js'])) {

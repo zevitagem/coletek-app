@@ -8,12 +8,8 @@ abstract class BaseUiController extends Controller
 {
     protected array $config = [
         'assets' => [
-            'css' => [
-                'app/app.css'
-            ],
-            'js' => [
-                'app/app.js',
-            ]
+            'css' => [],
+            'js' => []
         ]
     ];
 

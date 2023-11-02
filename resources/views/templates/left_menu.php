@@ -10,18 +10,13 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li>
-                        <a href="<?= route('process.php') ?>" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Lista</span>
+                        <a href="<?= route('user.php') ?>" class="waves-effect waves-dark">
+                            <span class="pcoded-mtext">Usuários</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= route('process.php?action=create'); ?>" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Cadastro</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= route('process.php?action=token'); ?>" class="waves-effect waves-dark">
-                            <span class="pcoded-mtext">Token</span>
+                        <a href="<?= route('setor.php?action=filter'); ?>" class="waves-effect waves-dark">
+                            <span class="pcoded-mtext">Filtros</span>
                         </a>
                     </li>
                 </ul>

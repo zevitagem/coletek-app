@@ -35,7 +35,7 @@ abstract class AbstractCrudRepository extends DatabaseRepository
 
     public function getValidObjects()
     {
-        $sql = "SELECT * FROM " . $this->getTable() . " WHERE " . $this->getDeletedAtColumn() . " IS NULL";
+        $sql = "SELECT * FROM " . $this->getTable();
         $res = $this->getConnectionDB()->query($sql);
 
         return $res->fetchAll(\PDO::FETCH_CLASS, $this->getClassModel());

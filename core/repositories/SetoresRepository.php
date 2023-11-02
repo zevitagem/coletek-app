@@ -3,12 +3,12 @@
 namespace app\repositories;
 
 use app\repositories\AbstractCrudRepository;
-use app\models\People;
+use app\models\Setor;
 
-class PeopleRepository extends AbstractCrudRepository
+class SetoresRepository extends AbstractCrudRepository
 {
     public function __construct()
     {
-        parent::setModel(new People());
+        parent::setModel(new Setor());
     }
 }

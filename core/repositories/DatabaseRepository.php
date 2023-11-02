@@ -34,6 +34,21 @@ class DatabaseRepository extends AbstractRepository
     {
         return $this->model::getPrimaryKey();
     }
+    
+    public function beginTransaction()
+    {
+        $this->getConnectionDB()->beginTransaction();
+    }
+    
+    public function rollBack()
+    {
+        $this->getConnectionDB()->rollBack();
+    }
+    
+    public function commit()
+    {
+        $this->getConnectionDB()->commit();
+    }
 
     public function queryAll(string $query, array $params = [])
     {

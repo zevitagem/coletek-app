@@ -4,15 +4,20 @@ namespace app\models;
 
 use app\models\AbstractModel;
 
-class People extends AbstractModel
+class User extends AbstractModel
 {
-    const TABLE = 'people';
-    const COLUMN_DELETED_AT = 'deleted_at';
+    const TABLE = 'users';
 
     private string $name;
+    private string $email;
 
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

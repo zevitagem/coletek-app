@@ -3,11 +3,11 @@
 namespace app\pages\http;
 
 use app\pages\http\BaseUiController;
-use app\services\ProcessService;
+use app\services\UserService;
 use app\exceptions\ValidatorException;
-use app\requesters\HttpRequester;
+use Throwable;
 
-class ProcessController extends BaseUiController
+class UserController extends BaseUiController
 {
     public function __construct()
     {
@@ -18,7 +18,13 @@ class ProcessController extends BaseUiController
 
         connectMYSQL();
 
-        $this->setMainService(new ProcessService());
+        $this->setMainService(new UserService());
+    }
+
+    public function addFormAssets()
+    {
+        $this->config['assets']['js'][] = 'app/' . $this->getControllerName() . '/form.js';
+        $this->config['assets']['css'][] = 'app/' . $this->getControllerName() . '/form.css';
     }
 
     public function create()
@@ -27,7 +33,7 @@ class ProcessController extends BaseUiController
 
         $data = $this->service->getDataToCreate();
 
-        parent::view('process/create.php', compact('data'));
+        parent::view('user/create.php', compact('data'));
     }
 
     public function store()
@@ -39,24 +45,20 @@ class ProcessController extends BaseUiController
             $this->service->handle($data, __FUNCTION__);
             $this->service->validate($data, __FUNCTION__);
             $status = $this->service->store($data);
+            $message = ($status) ? 'Operação realizada com sucesso!' : 'Ocorreu uma falha durante a inserção';
         } catch (ValidatorException $exc) {
             $message = $exc->getMessage();
-        } catch (\Throwable $ex) {
-            $message = $ex->getMessage();
+        } catch (Throwable $exc) {
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => [$exc->getMessage()]
+            ], false);
         }
 
         echo json_encode([
             'status' => $status,
-            'message' => ($status) ? 'Operação realizada com sucesso!' : $message
+            'message' => $message,
+            'url_callback' => ($status) ? route('user.php') : null
         ]);
-    }
-
-    public function token()
-    {
-        $testApi = new HttpRequester();
-        $result = $testApi->generateToken();
-
-        dd($result, true);
     }
 
     public function show()
@@ -80,7 +82,7 @@ class ProcessController extends BaseUiController
 
         $data['message'] = $message;
 
-        parent::view('process/show.php', ['data' => $data]);
+        parent::view('user/show.php', ['data' => $data]);
     }
 
     public function index()
@@ -89,6 +91,6 @@ class ProcessController extends BaseUiController
 
         $list = $this->service->getValidObjects();
 
-        parent::view('process/index.php', ['rows' => $list]);
+        parent::view('user/index.php', ['rows' => $list]);
     }
 }

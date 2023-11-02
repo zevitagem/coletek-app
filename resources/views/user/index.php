@@ -1,5 +1,5 @@
 <div class="mb-2 text-right">
-    <a class="btn btn-success" href="<?= route('process.php?action=create') ?>">Novo processo</a>
+    <a class="btn btn-success" href="<?= route('user.php?action=create') ?>">Novo usero</a>
 </div>
 
 <div class="card">
@@ -11,7 +11,7 @@
         </ul>
         <div class="tab-content"><br>
             <div class="tab-pane fade show active" id="list-tab" role="tabpanel" aria-labelledby="list-tab">
-                <?php includeWithVariables(view('process/list.php'), ['rows' => $rows]) ?>
+                <?php includeWithVariables(view('user/list.php'), ['rows' => $rows]) ?>
             </div>
         </div>
     </div>

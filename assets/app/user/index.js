@@ -1,4 +1,4 @@
-var PROCESS = function () {
+var USER = function () {
 
     var state = {};
 
@@ -8,5 +8,5 @@ var PROCESS = function () {
 };
 
 $(document).ready(function () {
-    PROCESS().load();
+    USER().load();
 });

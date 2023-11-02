@@ -24,10 +24,5 @@ var APP = function () {
     return {load, hideMenu, getQueryElement, getQueryValue};
 };
 
-$(document).ready(function () {
-    APP = APP();
-    APP.load();
-});
-
 
 
