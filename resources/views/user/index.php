@@ -38,9 +38,6 @@ if (!empty($message)) {
         <a class="btn btn-success" href="<?= route('user.php?action=create') ?>">Novo usuário</a>
     </div>
 </div>
-<div class="mb-2 text-right">
-
-</div>
 
 <div class="card">
     <div class="card-body">

@@ -61,7 +61,7 @@ function hasPrintDebug()
     return (
         isset($_SERVER['HTTP_REFERER']) &&
         strpos($_SERVER['HTTP_REFERER'], 'printDebug=1')
-    );
+        );
 }
 
 function dd($data, $print = false, $exit = true)
@@ -173,11 +173,6 @@ function includeWithVariables($filePath, $variables = array(), $print = true)
 function connectMYSQL()
 {
     return \app\libraries\PDOConnection\PDOConnector::connect(OPTION_TYPE_DB_MYSQL);
-}
-
-function connectSQLSERVER()
-{
-    return \app\libraries\PDOConnection\PDOConnector::connect(OPTION_TYPE_DB_SQLSERVER);
 }
 
 function env($key, string $prefixAccessFolder = '../')

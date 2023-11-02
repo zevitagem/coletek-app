@@ -16,7 +16,6 @@ abstract class AbstractService implements ConfiguratorContract
     protected AbstractRepository $repository;
     protected AbstractValidator $validator;
     protected AbstractHandler $handler;
-    
     private bool $configured = false;
 
     public function getRepository()

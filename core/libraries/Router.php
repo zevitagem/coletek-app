@@ -3,6 +3,8 @@
 namespace app\libraries;
 
 use app\pages\http\Controller;
+use Throwable;
+use InvalidArgumentException;
 
 class Router
 {
@@ -12,7 +14,7 @@ class Router
     {
         $this->setController($controller);
     }
-    
+
     public function run()
     {
         $this->handle();
@@ -28,7 +30,7 @@ class Router
         $action = $_GET['action'] ?? '';
 
         if (empty($this->controller)) {
-            throw new \InvalidArgumentException('The controller must be setted before executing the action');
+            throw new InvalidArgumentException('The controller must be setted before executing the action');
         }
 
         if (empty($action)) {
@@ -36,12 +38,12 @@ class Router
         }
 
         if (!method_exists($this->controller, $action)) {
-            throw new \InvalidArgumentException('Please, create a method to resolve request in controller class based on "action" parameter');
+            throw new InvalidArgumentException('Please, create a method to resolve request in controller class based on "action" parameter');
         }
 
         try {
             $this->controller->{$action}();
-        } catch (\Throwable $exc) {
+        } catch (Throwable $exc) {
             dd($exc);
         }
     }

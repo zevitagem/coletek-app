@@ -5,6 +5,9 @@ namespace app\validators;
 abstract class AbstractValidator
 {
     protected AbstractService $service;
+    private string $method;
+    private bool $withHTML = true;
+    private array $errors = [];
     protected array $data;
     protected array $messages = [
         'id_invalid' => 'O ID é inválido',
@@ -12,9 +15,6 @@ abstract class AbstractValidator
         'register_must_exists' => 'O registro em questão deve existir',
         'only_owner_can_manipulate' => 'Somente o proprietário pode manipular o registro',
     ];
-    private string $method;
-    private bool $withHTML = true;
-    private array $errors = [];
 
     public function setData(array $data)
     {
@@ -31,7 +31,7 @@ abstract class AbstractValidator
         $this->errors[] = vsprintf($this->messages[$key], $data);
     }
 
-    private function setMethod(string $method)
+    public function setMethod(string $method)
     {
         $this->method = $method;
     }

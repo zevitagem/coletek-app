@@ -108,6 +108,13 @@ abstract class AbstractUiController extends Controller
         }
     }
 
+    protected function getSharedData()
+    {
+        return [
+            'shared' => []
+        ];
+    }
+
     private function getHeaderViewParams(array $sharedData = [])
     {
         return array_merge($sharedData,
@@ -126,12 +133,5 @@ abstract class AbstractUiController extends Controller
         return array_merge(
             $sharedData, ['assets' => $this->config['assets'] ?? []]
         );
-    }
-
-    private function getSharedData()
-    {
-        return [
-            'shared' => []
-        ];
     }
 }

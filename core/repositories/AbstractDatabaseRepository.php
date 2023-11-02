@@ -13,11 +13,6 @@ abstract class AbstractDatabaseRepository extends AbstractRepository
         return $this->model::COLUMN_DELETED_AT;
     }
 
-    public function getConnectionDB()
-    {
-        return PDOConnector::getCon(PDOConnector::getType());
-    }
-
     public function getTables()
     {
         $sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES ORDER BY TABLE_NAME ASC";
@@ -194,6 +189,11 @@ abstract class AbstractDatabaseRepository extends AbstractRepository
             . " %having ";
 
         return $this->getByConditionFromSQL($sql, $filters);
+    }
+
+    protected function getConnectionDB()
+    {
+        return PDOConnector::getCon(PDOConnector::getType());
     }
 
     protected function getByConditionFromSQL(string $sql, array $filters = [])

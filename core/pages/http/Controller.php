@@ -16,15 +16,4 @@ abstract class Controller
 
         return strtolower(str_replace('Controller', '', current($list)));
     }
-
-    protected function connectMYSQL()
-    {
-        connectMYSQL();
-
-        if (empty($this->service)) {
-            return;
-        }
-
-        $this->service->configure();
-    }
 }

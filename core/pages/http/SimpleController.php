@@ -2,7 +2,9 @@
 
 namespace app\pages\http;
 
-class SimpleController
+use app\pages\http\Controller;
+
+class SimpleController extends Controller
 {
     public function index()
     {
@@ -11,8 +13,8 @@ class SimpleController
 
     public function error()
     {
-        $message = base64_decode($_GET['e']);
+        $message = (isset($_GET['e'])) ? base64_decode($_GET['e']) : '';
 
-        includeWithVariables(view('error.php'), ['message' => $message]);
+        includeWithVariables(view('components/error.php'), ['message' => $message]);
     }
 }

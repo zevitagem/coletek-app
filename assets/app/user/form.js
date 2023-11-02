@@ -59,16 +59,14 @@ var USER_FORM = function () {
                 success: function (data) {
                     if (data.status == false) {
                         APP.addTopMessage(data.message);
-                    } else {
-                        APP.addTopMessage('');
-                        alert(data.message);
-
-                        window.location.href = data.url_callback;
+                        return;
                     }
+
+                    alert(data.message);
+                    window.location.href = data.url_callback;
                 }
             });
         });
-
     }
 
     return {load, state};

@@ -6,7 +6,7 @@ abstract class AbstractModel
 {
     const TABLE = '';
     const PRIMARY_KEY = 'id';
-    
+
     public function hydrate(array $attributes)
     {
         foreach ($attributes as $attr => $value) {

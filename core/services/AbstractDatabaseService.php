@@ -9,7 +9,7 @@ abstract class AbstractDatabaseService extends AbstractService
     public function configure()
     {
         connectMYSQL();
-        
+
         parent::configure();
     }
 
@@ -41,7 +41,7 @@ abstract class AbstractDatabaseService extends AbstractService
     {
         return $this->repository->deleteByCondition($condition);
     }
-    
+
     protected function getByCondition(array $condition)
     {
         return $this->repository->getByCondition($condition);

@@ -14,7 +14,6 @@ use app\contracts\CRUDServiceContract;
 
 class UserService extends AbstractDatabaseService implements CRUDServiceContract
 {
-
     public function __construct()
     {
         parent::setRepository(new UserRepository());
@@ -58,10 +57,10 @@ class UserService extends AbstractDatabaseService implements CRUDServiceContract
 
     public function update(array $data)
     {
+        $this->repository->beginTransaction();
+
         try {
             $this->handle($data, __FUNCTION__);
-
-            $this->repository->beginTransaction();
 
             $row = $this->repository->getById($data['id']);
             $data['row'] = $row;

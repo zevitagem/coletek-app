@@ -13,7 +13,6 @@ class UserController extends AbstractUiController
     {
         parent::__construct([
             'has_auth' => false,
-            'assets' => []
         ]);
 
         $this->setService(new UserService());
@@ -37,7 +36,7 @@ class UserController extends AbstractUiController
         } catch (Throwable $exc) {
             $message = includeWithVariables(view('components/validator-messages.php'), [
                 'messages' => [$exc->getMessage()]
-            ], false);
+                ], false);
         }
 
         parent::view('user/create.php', compact('data', 'message'));
@@ -102,11 +101,11 @@ class UserController extends AbstractUiController
             $messages = $exc->getValidatorErrors();
             $message = includeWithVariables(view('components/validator-messages.php'), [
                 'messages' => $messages
-            ], false);
+                ], false);
         } catch (Throwable $exc) {
             $message = includeWithVariables(view('components/validator-messages.php'), [
                 'messages' => [$exc->getMessage()]
-            ], false);
+                ], false);
         }
 
         parent::view('user/show.php', compact('data', 'message'));
@@ -125,7 +124,7 @@ class UserController extends AbstractUiController
         } catch (Throwable $exc) {
             $message = includeWithVariables(view('components/validator-messages.php'), [
                 'messages' => [$exc->getMessage()]
-            ], false);
+                ], false);
         }
 
         echo json_encode([
@@ -146,11 +145,11 @@ class UserController extends AbstractUiController
         } catch (Throwable $exc) {
             $message = includeWithVariables(view('components/validator-messages.php'), [
                 'messages' => [$exc->getMessage()]
-            ], false);
+                ], false);
         }
 
         $data['params'] = $params;
-        
+
         parent::view('user/index.php', compact('data', 'message'));
     }
 }

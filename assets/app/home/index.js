@@ -8,6 +8,6 @@ var HOME = function () {
 };
 
 $(document).ready(function () {
-    HOME = HOME();
-    HOME.load();
+    APP.load();
+    HOME().load();
 });

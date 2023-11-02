@@ -9,20 +9,14 @@ class HomeController extends AbstractUiController
     public function __construct()
     {
         parent::__construct([
-            'has_auth' => false,
-            'assets' => [
-                'css' => [
-                    'app/home/index.css'
-                ],
-                'js' => [
-                    'app/home/index.js'
-                ]
-            ]
+            'has_auth' => false
         ]);
     }
 
     public function index()
     {
+        $this->addIndexAssets();
+
         parent::view('home.php', []);
     }
 }

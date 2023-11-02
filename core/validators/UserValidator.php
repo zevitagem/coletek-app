@@ -7,6 +7,8 @@ use app\traits\CrudValidator;
 
 class UserValidator extends AbstractValidator
 {
+    const MAX_SIZE = 100;
+
     use CrudValidator;
 
     public function __construct()
@@ -32,10 +34,10 @@ class UserValidator extends AbstractValidator
         if ($this->hasErrors()) {
             return;
         }
-        if (strlen($data['name']) > 100) {
+        if (strlen($data['name']) > self::MAX_SIZE) {
             $this->addError('name.max_size');
         }
-        if (strlen($data['email']) > 100) {
+        if (strlen($data['email']) > self::MAX_SIZE) {
             $this->addError('email.max_size');
         }
     }

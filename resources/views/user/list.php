@@ -12,7 +12,8 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($rows as $row) {
+            <?php
+            foreach ($rows as $row) {
                 $id = $row->getAttribute('users_id')
                 ?>
                 <tr id="user-<?= $id ?>">

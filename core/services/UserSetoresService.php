@@ -45,11 +45,11 @@ class UserSetoresService extends AbstractDatabaseService
     public function updateBulk(array $relations, int $userId)
     {
         $this->getRepository()->deleteByUser($userId);
-        
+
         if (empty($relations)) {
             return;
         }
-        
+
         return $this->storeBulk($relations, $userId);
     }
 }
