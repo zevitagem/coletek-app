@@ -187,6 +187,15 @@ abstract class AbstractDatabaseRepository extends AbstractRepository
         return $this->execute($sth);
     }
 
+    public function getByCondition(array $filters = [])
+    {
+        $sql = "SELECT * FROM " . $this->getTable() . " "
+            . " %where "
+            . " %having ";
+
+        return $this->getByConditionFromSQL($sql, $filters);
+    }
+
     protected function getByConditionFromSQL(string $sql, array $filters = [])
     {
         $table = $this->getTable();

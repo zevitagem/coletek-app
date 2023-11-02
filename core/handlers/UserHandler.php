@@ -22,6 +22,13 @@ class UserHandler extends AbstractHandler
             $data['setores_adicionados'] = array_unique($data['setores_adicionados']);
         }
     }
+    
+    public function index()
+    {
+        $data = & $this->data;
+        
+        $data['setor'] = (empty($data['setor'])) ? null : (int) $data['setor'];
+    }
 
     public function store()
     {

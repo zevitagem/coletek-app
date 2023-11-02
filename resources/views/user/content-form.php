@@ -6,7 +6,7 @@
             <td>Nome</td> 
             <td>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" value="<?= ($isUpdate) ? $row->getName() : '' ?>">
+                    <input type="text" maxlength="100" required class="form-control" name="name" value="<?= ($isUpdate) ? $row->getName() : '' ?>">
                 </div>
             </td> 
         </tr>
@@ -14,7 +14,7 @@
             <td>Email</td> 
             <td>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" value="<?= ($isUpdate) ? $row->getEmail() : '' ?>">
+                    <input type="email" maxlength="100" required class="form-control" name="email" value="<?= ($isUpdate) ? $row->getEmail() : '' ?>">
                 </div>
             </td> 
         </tr>

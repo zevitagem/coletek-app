@@ -136,11 +136,12 @@ class UserController extends AbstractUiController
 
     public function index()
     {
+        $params = $_GET;
         $data = [];
         $message = '';
 
         try {
-            $data = $this->service->getIndexData();
+            $data = $this->service->getIndexData($params);
             $this->addIndexAssets();
         } catch (Throwable $exc) {
             $message = includeWithVariables(view('components/validator-messages.php'), [
@@ -148,6 +149,8 @@ class UserController extends AbstractUiController
             ], false);
         }
 
+        $data['params'] = $params;
+        
         parent::view('user/index.php', compact('data', 'message'));
     }
 }

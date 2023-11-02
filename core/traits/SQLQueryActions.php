@@ -54,6 +54,8 @@ trait SQLQueryActions
             }
 
             $key = "where_{$field}_$i";
+            $key = md5($key);
+            
             $conditions[] = "$field = :$key";
             $toBind[$key] = $value;
             $i++;

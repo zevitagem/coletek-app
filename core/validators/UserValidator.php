@@ -12,8 +12,10 @@ class UserValidator extends AbstractValidator
     public function __construct()
     {
         $this->messages = array_merge($this->messages, [
-            'name' => 'O campo nome deve ser preenchido',
-            'email' => 'O campo email deve ser preenchido',
+            'name.empty' => 'O campo nome deve ser preenchido',
+            'name.max_size' => 'O campo nome deve possuir no máximo 100 caracteres',
+            'email.max_size' => 'O campo email deve possuir no máximo 100 caracteres',
+            'email.empty' => 'O campo email deve ser preenchido',
         ]);
     }
 
@@ -22,10 +24,19 @@ class UserValidator extends AbstractValidator
         $data = $this->getData();
 
         if (empty($data['name'])) {
-            $this->addError('name');
+            $this->addError('name.empty');
         }
         if (empty($data['email'])) {
-            $this->addError('email');
+            $this->addError('email.empty');
+        }
+        if ($this->hasErrors()) {
+            return;
+        }
+        if (strlen($data['name']) > 100) {
+            $this->addError('name.max_size');
+        }
+        if (strlen($data['email']) > 100) {
+            $this->addError('email.max_size');
         }
     }
 }

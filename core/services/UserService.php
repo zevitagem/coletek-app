@@ -14,6 +14,7 @@ use app\contracts\CRUDServiceContract;
 
 class UserService extends AbstractDatabaseService implements CRUDServiceContract
 {
+
     public function __construct()
     {
         parent::setRepository(new UserRepository());
@@ -25,10 +26,13 @@ class UserService extends AbstractDatabaseService implements CRUDServiceContract
         $this->setDependencie('user_setores_service', new UserSetoresService());
     }
 
-    public function getIndexData()
+    public function getIndexData(array $data)
     {
+        $this->handle($data, 'index');
+
         return [
-            'rows' => $this->get()
+            'rows' => $this->getByCondition($data),
+            'setores' => $this->dependencies['setores_repository']->get()
         ];
     }
 

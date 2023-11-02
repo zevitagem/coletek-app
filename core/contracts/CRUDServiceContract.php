@@ -4,7 +4,7 @@ namespace app\contracts;
 
 interface CRUDServiceContract
 {
-    public function getIndexData();
+    public function getIndexData(array $data);
 
     public function getCreateData();
 
