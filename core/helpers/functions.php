@@ -183,7 +183,11 @@ function env($key, string $prefixAccessFolder = '../')
     return $envs[$key] ?? null;
 }
 
-function extractJsonFromRequester(Psr\Http\Message\ResponseInterface $requester)
+/**
+ * @param Psr\Http\Message\ResponseInterface $requester
+ * @return array
+ */
+function extractJsonFromRequester($requester)
 {
     $content = $requester->getBody()->getContents();
     $json = json_decode($content, true);

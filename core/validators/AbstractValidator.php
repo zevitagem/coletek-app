@@ -4,10 +4,9 @@ namespace app\validators;
 
 abstract class AbstractValidator
 {
-    protected AbstractService $service;
-    private string $method;
-    private bool $withHTML = true;
-    private array $errors = [];
+    protected string $method;
+    protected bool $withHTML = true;
+    protected array $errors = [];
     protected array $data;
     protected array $messages = [
         'id_invalid' => 'O ID é inválido',

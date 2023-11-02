@@ -24,9 +24,9 @@ Query [0] executed in 0.01223 ms
 ...
 ```
 
-Se você já tiver executado as migrations antes, provavelmente as tabelas já estão criadas e a tabela "migrations" também,
-impossibilitando então de executar novamente o comando como medida de segurança. Se precisar, por algum motivo, executar novamente
-as migrations, você precisará excluir todas as tabelas, caso contrário, irá receber uma mensagem tipo:
+If you have already run the migrations before, the tables are probably already created and the "migrations" table too,
+making it impossible to execute the command again as a security measure. If you need, for any reason, to run again
+migrations, you will need to delete all tables, otherwise you will receive a message like:
 
 ```
 Fatal error: Uncaught Exception: This script has already been executed, check your database. in /var/www/html/app/configuration.php:12
@@ -36,28 +36,21 @@ Stack trace:
 ```
 
 ## Enjoy
-Open your browser: http://localhost:8080/app/public
+If you are using Docker left as a template, you will be able to access your application through:
 
-## Observations
-An unforeseen event occurred as informed via WhatsApp and I will not be able, due to force majeure, to complete step 2.3.
-(remembering that any questions about the lines implemented so far or the solution that would be implemented at this point, I am entirely available for clarification).
-
-However, so that you can visualize the whole idea of how the inclusion of a request component in an external API would be done, I wrote the following classes:
-
-- https://github.com/zevitagem/evolke-test/blob/main/core/requesters/HttpRequester.php
-- https://github.com/zevitagem/evolke-test/blob/main/core/adapters/request/GuzzleRequestAdapter.php
-
-Thus, the entire communication approach would be implemented in the external API.
-
-Follow the link to generate a token and view how it works: http://localhost:8080/app/routes/process.php?action=token
+- **Application** -> http://localhost:8080/app/public
+- **Database** -> http://localhost:3305 (example using PHPMyAdmin)
 
 ## Static analyzer
 ```
-$ vendor/bin/phpstan analyse core/
+$ vendor/bin/phpstan analyse -l 0 core/
 
 43/43 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
 [OK] No errors
 ```
+
+You can still configure the PHP Stan execution level, follow the link:
+https://phpstan.org/user-guide/rule-levels
 
 ## Technologies and Libraries
 - [Bootstrap] - https://getbootstrap.com
