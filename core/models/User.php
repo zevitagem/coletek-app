@@ -8,8 +8,8 @@ class User extends AbstractModel
 {
     const TABLE = 'users';
 
-    private string $name;
-    private string $email;
+    protected string $name;
+    protected string $email;
 
     public function getName()
     {

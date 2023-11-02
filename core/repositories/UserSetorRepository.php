@@ -2,11 +2,11 @@
 
 namespace app\repositories;
 
-use app\repositories\AbstractCrudRepository;
+use app\repositories\AbstractDatabaseRepository;
 use app\models\Setor;
 use app\models\UserSetor;
 
-class UserSetorRepository extends AbstractCrudRepository
+class UserSetorRepository extends AbstractDatabaseRepository
 {
     public function __construct()
     {
@@ -18,6 +18,13 @@ class UserSetorRepository extends AbstractCrudRepository
         return parent::store([
             'user_id' => $data['user_id'],
             'setor_id' => $data['setor_id'],
+        ]);
+    }
+
+    public function deleteByUser(int $userId)
+    {
+        return parent::deleteByCondition([
+            'user_id' => $userId
         ]);
     }
 
@@ -37,6 +44,6 @@ class UserSetorRepository extends AbstractCrudRepository
 
         parent::execute($sth);
 
-        return $sth->fetchAll(\PDO::FETCH_CLASS, $this->getClassModel());
+        return $sth->fetchAll(\PDO::FETCH_CLASS, $this->getModelClassName());
     }
 }

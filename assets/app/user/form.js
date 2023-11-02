@@ -5,10 +5,40 @@ var USER_FORM = function () {
         setor: $('#setor'),
         setoresAdicionadosBox: $('#setores-adicionados-box'),
         addSetorButton: $('#add-setor'),
+        destroyButton: $('.destroy'),
         templateSetorAdicionadoHTML: $('#template-setor-adicionado').html(),
     };
 
     function load() {
+
+        state.destroyButton.click(function (e) {
+            e.preventDefault();
+
+            var button = $(this);
+            var url = button.attr('action'),
+                    method = button.attr('method');
+
+            var l = Ladda.create(button.get(0));
+            l.start();
+
+            $.ajax({
+                type: method,
+                url: url,
+                dataType: 'json',
+                complete: function () {
+                    l.stop();
+                },
+                success: function (data) {
+                    APP.addTopMessage(data.message);
+
+                    if (data.status == false) {
+                        return;
+                    }
+                    
+                    alert('remove a linha')
+                }
+            });
+        })
 
         state.addSetorButton.click(function (e) {
             e.preventDefault();
@@ -50,14 +80,13 @@ var USER_FORM = function () {
                 complete: function () {
                     l.stop();
                 },
-                success: function (data)
-                {
+                success: function (data) {
                     if (data.status == false) {
                         APP.addTopMessage(data.message);
                     } else {
                         APP.addTopMessage('');
                         alert(data.message);
-                        
+
                         window.location.href = data.url_callback;
                     }
                 }

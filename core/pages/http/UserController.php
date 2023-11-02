@@ -2,14 +2,13 @@
 
 namespace app\pages\http;
 
-use app\pages\http\BaseUiController;
+use app\pages\http\AbstractUiController;
 use app\services\UserService;
 use app\exceptions\ValidatorException;
 use Throwable;
 
-class UserController extends BaseUiController
+class UserController extends AbstractUiController
 {
-
     public function __construct()
     {
         parent::__construct([
@@ -17,9 +16,8 @@ class UserController extends BaseUiController
             'assets' => []
         ]);
 
-        connectMYSQL();
-
-        $this->setMainService(new UserService());
+        $this->setService(new UserService());
+        $this->service->configure();
     }
 
     public function addFormAssets()
@@ -30,11 +28,19 @@ class UserController extends BaseUiController
 
     public function create()
     {
-        $this->addCreateAssets();
+        $data = [];
+        $message = '';
 
-        $data = $this->service->getDataToCreate();
+        try {
+            $data = $this->service->getCreateData();
+            $this->addCreateAssets();
+        } catch (Throwable $exc) {
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => [$exc->getMessage()]
+            ], false);
+        }
 
-        parent::view('user/create.php', compact('data'));
+        parent::view('user/create.php', compact('data', 'message'));
     }
 
     public function store()
@@ -43,7 +49,6 @@ class UserController extends BaseUiController
         $status = false;
 
         try {
-            $this->service->handle($data, __FUNCTION__);
             $status = $this->service->store($data);
             $message = ($status) ? 'Operação realizada com sucesso!' : 'Ocorreu uma falha durante a inserção';
         } catch (ValidatorException $exc) {
@@ -60,14 +65,13 @@ class UserController extends BaseUiController
             'url_callback' => ($status) ? route('user.php') : null
         ]);
     }
-    
+
     public function update()
     {
         $data = $_POST;
         $status = false;
 
         try {
-            $this->service->handle($data, __FUNCTION__);
             $status = $this->service->update($data);
             $message = ($status) ? 'Operação realizada com sucesso!' : 'Ocorreu uma falha durante a atualização';
         } catch (ValidatorException $exc) {
@@ -89,34 +93,61 @@ class UserController extends BaseUiController
     {
         $id = $_GET['id'];
         $message = '';
+        $data = [];
 
         try {
-            $data = $this->service->getDataToShow($id);
-
-            if (!empty($data)) {
-                $message = 'Dados encontrados com sucesso.';
-                $_SESSION['success_message'] = $message;
-            }
-        } catch (\Throwable $ex) {
-            $data = [];
-
-            $message = $ex->getMessage();
-            $_SESSION['error_message'] = $message;
+            $data = $this->service->getShowData($id);
+            $this->addShowAssets();
+        } catch (ValidatorException $exc) {
+            $messages = $exc->getValidatorErrors();
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => $messages
+            ], false);
+        } catch (Throwable $exc) {
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => [$exc->getMessage()]
+            ], false);
         }
 
-        $data['message'] = $message;
+        parent::view('user/show.php', compact('data', 'message'));
+    }
 
-        $this->addShowAssets();
+    public function destroy()
+    {
+        $id = $_GET['id'];
+        $status = false;
 
-        parent::view('user/show.php', ['data' => $data]);
+        try {
+            $status = $this->service->destroy($id);
+            $message = ($status) ? 'Operação realizada com sucesso!' : 'Ocorreu uma falha durante a exclusão';
+        } catch (ValidatorException $exc) {
+            $message = $exc->getMessage();
+        } catch (Throwable $exc) {
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => [$exc->getMessage()]
+            ], false);
+        }
+
+        echo json_encode([
+            'status' => $status,
+            'message' => $message,
+        ]);
     }
 
     public function index()
     {
-        $this->addIndexAssets();
+        $data = [];
+        $message = '';
 
-        $list = $this->service->getValidObjects();
+        try {
+            $data = $this->service->getIndexData();
+            $this->addIndexAssets();
+        } catch (Throwable $exc) {
+            $message = includeWithVariables(view('components/validator-messages.php'), [
+                'messages' => [$exc->getMessage()]
+            ], false);
+        }
 
-        parent::view('user/index.php', ['rows' => $list]);
+        parent::view('user/index.php', compact('data', 'message'));
     }
 }

@@ -13,7 +13,7 @@ trait SQLQueryActions
     {
         $conditions = [];
         $i = 0;
-        $dateColumns = (defined($this->getClassModel() . '::DATE_COLUMNS')) 
+        $dateColumns = (defined($this->getModelClassName() . '::DATE_COLUMNS')) 
             ? $this->getModel()::DATE_COLUMNS 
             : [];
 

@@ -2,11 +2,11 @@
 
 namespace app\repositories;
 
-use app\repositories\AbstractCrudRepository;
+use app\repositories\AbstractDatabaseRepository;
 use app\models\User;
 use app\models\UserSetor;
 
-class UserRepository extends AbstractCrudRepository
+class UserRepository extends AbstractDatabaseRepository
 {
     public function __construct()
     {
@@ -21,7 +21,7 @@ class UserRepository extends AbstractCrudRepository
         ]);
     }
     
-    public function getValidObjects()
+    public function get()
     {
         $table = $this->getTable();
         $userSetores = UserSetor::TABLE;
@@ -37,6 +37,6 @@ class UserRepository extends AbstractCrudRepository
 
         $res = $this->getConnectionDB()->query($sql);
 
-        return $res->fetchAll(\PDO::FETCH_CLASS, $this->getClassModel());
+        return $res->fetchAll(\PDO::FETCH_CLASS, $this->getModelClassName());
     }
 }

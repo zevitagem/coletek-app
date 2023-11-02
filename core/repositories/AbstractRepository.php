@@ -3,7 +3,6 @@
 namespace app\repositories;
 
 use app\models\AbstractModel;
-use Throwable;
 
 abstract class AbstractRepository
 {
@@ -19,13 +18,8 @@ abstract class AbstractRepository
         return $this->model;
     }
 
-    public function getClassModel()
+    public function getModelClassName()
     {
         return get_class($this->model);
-    }
-
-    public function newException(Throwable $exc)
-    {
-        throw $exc;
     }
 }

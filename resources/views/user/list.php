@@ -24,7 +24,9 @@
                         <a class="btn btn-primary btn-sm" href="<?= route('user.php?action=show&id=' . $id) ?>">
                             <i class="feather icon-search"></i>
                         </a>
-                        <button class="btn btn-danger btn-sm"><i class="feather icon-trash"></i></button>
+                        <a data-style="expand-right" data-method="DELETE" data-action="<?= route('user.php?action=destroy&id=' . $id) ?>" type="button" class="btn btn-danger destroy ladda-button">
+                            <i class="feather icon-trash"></i>
+                        </a>
                     </td>
                 </tr>
             <?php } ?>

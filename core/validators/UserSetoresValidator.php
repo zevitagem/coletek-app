@@ -14,7 +14,7 @@ class UserSetoresValidator extends AbstractValidator
         ]);
     }
 
-    public function store()
+    public function form()
     {
         $data = $this->getData();
 

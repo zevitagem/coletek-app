@@ -8,7 +8,7 @@ class Setor extends AbstractModel
 {
     const TABLE = 'setores';
 
-    private string $name;
+    protected string $name;
 
     public function getName()
     {

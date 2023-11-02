@@ -1,3 +1,7 @@
+<?php if (!empty($message)) {
+    echo $message;
+} ?>
+
 <div class="mb-2 text-right">
     <a class="btn btn-success" href="<?= route('user.php?action=create') ?>">Novo usero</a>
 </div>
@@ -11,7 +15,7 @@
         </ul>
         <div class="tab-content"><br>
             <div class="tab-pane fade show active" id="list-tab" role="tabpanel" aria-labelledby="list-tab">
-                <?php includeWithVariables(view('user/list.php'), ['rows' => $rows]) ?>
+                <?php includeWithVariables(view('user/list.php'), ['rows' => $data['rows']]) ?>
             </div>
         </div>
     </div>

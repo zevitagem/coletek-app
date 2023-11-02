@@ -4,7 +4,7 @@ namespace app\pages\http;
 
 use app\pages\http\Controller;
 
-abstract class BaseUiController extends Controller
+abstract class AbstractUiController extends Controller
 {
     protected array $config = [
         'assets' => [
@@ -34,13 +34,13 @@ abstract class BaseUiController extends Controller
         $this->config += $config;
     }
 
-    public function addIndexAssets()
+    protected function addIndexAssets()
     {
         $this->config['assets']['js'][] = 'app/' . $this->getControllerName() . '/index.js';
         $this->config['assets']['css'][] = 'app/' . $this->getControllerName() . '/index.css';
     }
 
-    public function addShowAssets()
+    protected function addShowAssets()
     {
         if (method_exists($this, 'addFormAssets')) {
             $this->addFormAssets();
@@ -50,7 +50,7 @@ abstract class BaseUiController extends Controller
         $this->config['assets']['css'][] = 'app/' . $this->getControllerName() . '/show.css';
     }
 
-    public function addCreateAssets()
+    protected function addCreateAssets()
     {
         if (method_exists($this, 'addFormAssets')) {
             $this->addFormAssets();
@@ -60,13 +60,13 @@ abstract class BaseUiController extends Controller
         $this->config['assets']['css'][] = 'app/' . $this->getControllerName() . '/create.css';
     }
 
-    public function addListAssets()
+    protected function addListAssets()
     {
         $this->config['assets']['js'][] = 'app/' . $this->getControllerName() . '/list.js';
         $this->config['assets']['css'][] = 'app/' . $this->getControllerName() . '/list.css';
     }
 
-    public function view(
+    protected function view(
         string $contentPath,
         array $data = [],
         array $config = []

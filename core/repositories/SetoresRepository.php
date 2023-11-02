@@ -2,10 +2,10 @@
 
 namespace app\repositories;
 
-use app\repositories\AbstractCrudRepository;
 use app\models\Setor;
+use app\repositories\AbstractDatabaseRepository;
 
-class SetoresRepository extends AbstractCrudRepository
+class SetoresRepository extends AbstractDatabaseRepository
 {
     public function __construct()
     {

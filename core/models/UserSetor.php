@@ -8,15 +8,15 @@ class UserSetor extends AbstractModel
 {
     const TABLE = 'user_setores';
 
-    private int $user_id;
-    private int $setor_id;
+    protected int $user_id;
+    protected int $setor_id;
 
     public function getUserId()
     {
         return $this->user_id;
     }
 
-    public function getSetord()
+    public function getSetorId()
     {
         return $this->setor_id;
     }

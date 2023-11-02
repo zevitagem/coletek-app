@@ -7,23 +7,21 @@ use app\contracts\ConfiguratorContract;
 use app\validators\AbstractValidator;
 use app\exceptions\ValidatorException;
 use app\handlers\AbstractHandler;
+use app\traits\AvailabilityWithDependencie;
 
 abstract class AbstractService implements ConfiguratorContract
 {
+    use AvailabilityWithDependencie;
+
     protected AbstractRepository $repository;
     protected AbstractValidator $validator;
     protected AbstractHandler $handler;
-    protected array $dependencies = [];
+    
     private bool $configured = false;
 
     public function getRepository()
     {
         return $this->repository;
-    }
-
-    public function setDependencie(string $key, $value)
-    {
-        $this->dependencies[$key] = $value;
     }
 
     public function setRepository(AbstractRepository $repository)
@@ -51,7 +49,9 @@ abstract class AbstractService implements ConfiguratorContract
         $validator->setData($data);
 
         if ($validator->run($method) === false) {
-            throw new ValidatorException($validator->translate());
+            $exception = new ValidatorException($validator->translate());
+            $exception->setValidator($validator);
+            throw $exception;
         }
 
         return true;

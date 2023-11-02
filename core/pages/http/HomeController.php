@@ -2,9 +2,9 @@
 
 namespace app\pages\http;
 
-use app\pages\http\BaseUiController;
+use app\pages\http\AbstractUiController;
 
-class HomeController extends BaseUiController
+class HomeController extends AbstractUiController
 {
     public function __construct()
     {
